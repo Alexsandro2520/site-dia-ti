@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="night">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="Acompanhe a pontuação dos grupos no Dia do TI: Multiverso dos Quadrinhos.">
+  <title>Dia do TI | Multiverso dos Quadrinhos</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/script.js" defer></script>
+</head>
+<body>
+  <header class="navbar">
+    <a class="brand" href="#inicio" aria-label="Dia do TI - início">
+      <!-- Troque apenas o caminho abaixo quando adicionar sua logo. -->
+      <img class="brand-logo" src="img/logo.png" alt="Logo do Dia do TI"
+           onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+      <span class="logo-placeholder" aria-hidden="true">DTI</span>
+      <span class="brand-name">Dia do <strong>TI</strong></span>
+    </a>
+
+    <nav class="nav-links" aria-label="Navegação principal">
+      <a href="#inicio">Início</a>
+      <a href="#pontuacoes">Pontuações</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Ativar modo dia">
+      <span class="theme-icon" aria-hidden="true">☀</span>
+      <span class="theme-label">Modo dia</span>
+    </button>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <!-- Troque o caminho da imagem em css/style.css, na variável --hero-image. -->
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <p class="eyebrow"><span></span> UM EVENTO. VÁRIOS UNIVERSOS.</p>
+        <h1 id="hero-title">MULTIVERSO<br><span>DOS QUADRINHOS</span></h1>
+        <p class="hero-subtitle">Junte-se a nós! Para que nossos inimigos sejam completamente <strong>OBLITERADOS!</strong></p>
+        <a class="hero-button" href="#pontuacoes">VER O PLACAR <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="hero-stamp" aria-hidden="true"><span>DIA</span><strong>DO<br>TI</strong><span>2026</span></div>
+    </section>
+
+    <section class="scores-section section-wrap" id="pontuacoes" aria-labelledby="scores-title">
+      <div class="section-heading">
+        <p class="eyebrow">A BATALHA PELA LIDERANÇA</p>
+        <h2 id="scores-title">PLACAR <span>GERAL</span></h2>
+        <p class="section-description">Cada ponto conta. Qual grupo vai dominar o multiverso?</p>
+      </div>
+
+      <div class="score-grid">
+        <article class="score-card score-yellow">
+          <div class="card-top"><span class="team-symbol" aria-hidden="true">★</span><span class="team-tag">GRUPO 01</span></div>
+          <h3>Amarelo</h3>
+          <p class="score-number" id="score-amarelo" aria-live="polite">—</p>
+          <p class="score-caption">PONTOS</p>
+          <div class="score-bar"><span></span></div>
+        </article>
+        <article class="score-card score-blue">
+          <div class="card-top"><span class="team-symbol" aria-hidden="true">◆</span><span class="team-tag">GRUPO 02</span></div>
+          <h3>Azul</h3>
+          <p class="score-number" id="score-azul" aria-live="polite">—</p>
+          <p class="score-caption">PONTOS</p>
+          <div class="score-bar"><span></span></div>
+        </article>
+        <article class="score-card score-purple">
+          <div class="card-top"><span class="team-symbol" aria-hidden="true">✦</span><span class="team-tag">GRUPO 03</span></div>
+          <h3>Roxo</h3>
+          <p class="score-number" id="score-roxo" aria-live="polite">—</p>
+          <p class="score-caption">PONTOS</p>
+          <div class="score-bar"><span></span></div>
+        </article>
+        <article class="score-card score-red">
+          <div class="card-top"><span class="team-symbol" aria-hidden="true">⚡</span><span class="team-tag">GRUPO 04</span></div>
+          <h3>Vermelho</h3>
+          <p class="score-number" id="score-vermelho" aria-live="polite">—</p>
+          <p class="score-caption">PONTOS</p>
+          <div class="score-bar"><span></span></div>
+        </article>
+      </div>
+      <p class="score-status" id="score-status" role="status">Carregando pontuações...</p>
+    </section>
+
+    <section class="quote-band" aria-label="Mensagem do evento">
+      <p>ESCOLHA SEU UNIVERSO. <strong>LUTE PELO SEU GRUPO.</strong></p>
+      <span aria-hidden="true">✦</span>
+    </section>
+  </main>
+
+  <footer class="footer" id="contato">
+    <div class="footer-main">
+      <div>
+        <a class="footer-brand" href="#inicio">DIA DO <span>TI</span></a>
+        <p>Uma disputa épica através do multiverso dos quadrinhos.</p>
+      </div>
+      <div class="footer-contact">
+        <h2>ENTRE EM CONTATO</h2>
+        <!-- Substitua estes textos pelos contatos oficiais do evento. -->
+        <p>E-mail: <a href="mailto:contato@exemplo.com">contato@exemplo.com</a></p>
+        <p>Instagram: <a href="#" aria-label="Adicionar link do Instagram">@seu_instagram</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Dia do TI</span>
+      <span>QUE COMECE A BATALHA!</span>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1 @@
+Coloque sua logo em logo.png e a imagem de fundo em multiverso.jpg nesta pasta. Os caminhos já estão preparados no site.
