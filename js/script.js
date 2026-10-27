@@ -66,7 +66,7 @@ function atualizarLider(cards) {
         );
     });
 }
-
+/* ANTIGO loadScores usando o PHP
 async function loadScores() {
   const status = document.getElementById("score-status");
   const groups = ["amarelo", "azul", "roxo", "vermelho"];
@@ -108,7 +108,76 @@ async function loadScores() {
     status.classList.add("error");
     console.error(error);
   }
+}*/
+
+async function loadScores() {
+  const status = document.getElementById("score-status");
+  const groups = ["amarelo", "azul", "roxo", "vermelho"];
+
+  try {
+    const cards = await Promise.all(
+      groups.map(async (group) => {
+        const response = await fetch(`scores/${group}.txt`, {
+          cache: "no-store"
+        });
+
+        if (!response.ok) {
+          throw new Error(`Erro ao carregar a pontuação de ${group}.`);
+        }
+
+        const texto = await response.text();
+        const valor = texto.trim();
+        const score = valor === "" ? NaN : Number(valor);
+
+        if (!Number.isFinite(score)) {
+          throw new Error(`Pontuação inválida para ${group}.`);
+        }
+
+        const target = document.getElementById(`score-${group}`);
+        target.textContent = score.toLocaleString("pt-BR");
+
+        return {
+          group,
+          score,
+          card: target.closest(".score-card")
+        };
+      })
+    );
+
+    // Identifica o grupo com a maior pontuação.
+    if (typeof atualizarLider === "function") {
+      atualizarLider(cards);
+    }
+
+    // Ordena da maior para a menor pontuação.
+    cards.sort((a, b) => b.score - a.score);
+
+    const grid = document.querySelector(".score-grid");
+    cards.forEach(({ card }) => grid.appendChild(card));
+
+    status.textContent = "Pontuações carregadas com sucesso.";
+    status.classList.remove("error");
+
+  } catch (error) {
+    groups.forEach((group) => {
+      document.getElementById(`score-${group}`).textContent = "—";
+    });
+
+    document.querySelectorAll(".score-card").forEach((card) => {
+      card.classList.remove("lider");
+    });
+
+    status.textContent = "Não foi possível carregar as pontuações.";
+    status.classList.add("error");
+
+    console.error(error);
+  }
 }
+
+loadScores();
+
+// Atualiza os números a cada 15 segundos.
+setInterval(loadScores, 15000);
 
 
 
