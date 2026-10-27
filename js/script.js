@@ -23,6 +23,50 @@ try {
   if (savedTheme === "day" || savedTheme === "night") applyTheme(savedTheme);
 } catch (_) {}
 
+// Data do evento no horário de Brasília (UTC-03:00).
+const eventDate = new Date("2026-10-29T12:40:00-03:00").getTime();
+const countdownTitle = document.getElementById("countdown-title");
+const countdownTimer = document.getElementById("countdown-timer");
+
+function updateCountdown() {
+  const remaining = eventDate - Date.now();
+
+  if (remaining <= 0) {
+    countdownTitle.textContent = "O DIA DO TI JÁ COMEÇOU...";
+    countdownTimer.hidden = true;
+    return;
+  }
+
+  countdownTitle.textContent = "O DIA DO TI ESTÁ VINDO";
+  countdownTimer.hidden = false;
+  const days = Math.floor(remaining / 86400000);
+  const hours = Math.floor((remaining % 86400000) / 3600000);
+  const minutes = Math.floor((remaining % 3600000) / 60000);
+  const seconds = Math.floor((remaining % 60000) / 1000);
+
+  document.getElementById("countdown-days").textContent = String(days).padStart(2, "0");
+  document.getElementById("countdown-hours").textContent = String(hours).padStart(2, "0");
+  document.getElementById("countdown-minutes").textContent = String(minutes).padStart(2, "0");
+  document.getElementById("countdown-seconds").textContent = String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+function atualizarLider(cards) {
+    const maiorPontuacao = Math.max(
+        ...cards.map(item => item.score)
+    );
+
+    cards.forEach(item => {
+        item.card.classList.toggle(
+            "lider",
+            item.score === maiorPontuacao &&
+            Number.isFinite(item.score)
+        );
+    });
+}
+
 async function loadScores() {
   const status = document.getElementById("score-status");
   const groups = ["amarelo", "azul", "roxo", "vermelho"];
@@ -32,11 +76,27 @@ async function loadScores() {
     if (!response.ok) throw new Error("Não foi possível consultar os arquivos de pontuação.");
     const scores = await response.json();
 
-    groups.forEach((group) => {
+    const cards = groups.map((group) => {
       const target = document.getElementById(`score-${group}`);
-      const value = Number(scores[group]);
-      target.textContent = Number.isFinite(value) ? value.toLocaleString("pt-BR") : "—";
+      const parsed = Number(scores[group]);
+      const valid = Number.isFinite(parsed);
+      target.textContent = valid ? parsed.toLocaleString("pt-BR") : "—";
+      return {
+        group,
+        score: valid ? parsed : Number.NEGATIVE_INFINITY,
+        card: target.closest(".score-card")
+      };
     });
+
+    // Com a grade em direção RTL, a maior pontuação fica à direita.
+    // Identifica o grupo líder.
+    atualizarLider(cards);
+
+    // Ordena da maior para a menor pontuação.
+    cards.sort((a, b) => b.score - a.score);
+
+    const grid = document.querySelector(".score-grid");
+    cards.forEach(({ card }) => grid.appendChild(card));
 
     status.textContent = "Pontuações carregadas dos arquivos do evento.";
     status.classList.remove("error");
@@ -49,6 +109,8 @@ async function loadScores() {
     console.error(error);
   }
 }
+
+
 
 loadScores();
 // Atualiza os números periodicamente caso os arquivos sejam alterados durante o evento.

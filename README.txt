@@ -28,3 +28,5 @@ PERSONALIZAÇÃO
 - Pontuações: edite os arquivos .txt em scores/.
 
 A página atualiza as pontuações automaticamente a cada 15 segundos.
+
+Novidades: os placares são reordenados automaticamente a cada atualização, com a maior pontuação à direita. A contagem regressiva termina em 29/10/2026 às 12h40 (horário de Brasília, UTC-03:00); depois disso, o título muda para "O DIA DO TI JÁ COMEÇOU...".
